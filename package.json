@@ -22,9 +22,12 @@
     "babel-preset-react": "^6.22.0",
     "body-parser": "^1.16.1",
     "cookie-parser": "^1.4.3",
+    "css-loader": "^0.26.1",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
+    "file-loader": "^0.10.0",
     "jquery": "^3.1.1",
+    "node-sass": "^4.5.0",
     "oauth": "^0.9.15",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -32,7 +35,10 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "request": "^2.79.0",
-    "twitter": "^1.7.0"
+    "sass-loader": "^6.0.1",
+    "style-loader": "^0.13.1",
+    "twitter": "^1.7.0",
+    "url-loader": "^0.5.7"
   },
   "devDependencies": {
     "webpack": "^2.2.1"

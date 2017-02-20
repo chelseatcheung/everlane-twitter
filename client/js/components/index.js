@@ -5,6 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import twitterSearch from '../reducers/main';
 import App from './app';
+import '../../assets/styles/main.scss';
 
 let store = createStore(twitterSearch, applyMiddleware(thunk))
 

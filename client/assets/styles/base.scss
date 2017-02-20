@@ -1,0 +1,25 @@
+@import './variables.scss';
+
+@font-face {
+  font-family: 'Apercu';
+  src: url('../fonts/Apercu.otf');
+}
+
+@font-face {
+  font-family: 'Apercu-light';
+  src: url('../fonts/Apercu-Light.otf');
+}
+
+@font-face {
+  font-family: 'Apercu-bold';
+  src: url('../fonts/Apercu-Bold.otf');
+}
+
+body {
+  font-family: Apercu;
+  color: $black;
+}
+
+input, select, button, option {
+  font-family: Apercu;
+}
