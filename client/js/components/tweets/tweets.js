@@ -8,6 +8,9 @@ class TweetsContainer extends Component {
   render() {
     let display;
     switch (this.props.displayState) {
+      case 'init':
+        display = <div></div>
+        break;
       case 'none':
         display = <div>Sorry, no tweets matching your request.</div>
         break;
@@ -15,11 +18,11 @@ class TweetsContainer extends Component {
         display = <PhotoTweets tweets={this.props.displayTweets}/>
         break;
       case 'text':
-        display = <TextTweets tweets = {this.props.displayTweets}/>
+        display = <TextTweets tweets={this.props.displayTweets}/>
         break;
     }
     return (
-      <div>
+      <div className="tweets-container">
         {display}
       </div>
     )

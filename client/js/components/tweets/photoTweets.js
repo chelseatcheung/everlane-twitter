@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const PhotoTweets = (props) => {
+class PhotoTweets extends Component {
+  render() {
     return (
       <div>
-      {props.tweets.map(function(index){
+      {this.props.tweets.map(function(index){
         return (
-          <div>
+          <div key={index.user}>
           {index.user}
-          <img key={index.user} src={index.photo}/>
+          <img src={index.photo}/>
           </div>
           )
       })}
       </div>
     )
+  }
 }
 
 export default PhotoTweets;

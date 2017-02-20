@@ -12,15 +12,15 @@ class SearchContainer extends Component {
   } 
   render() {
     return (
-        <div>
-          <select ref="searchOption">
+        <div className="search-container">
+          <select className="search-bar" ref="searchOption">
             <option>Search By</option>
             <option value="phrase">Word/Phrase</option>
             <option value="hashtag">Hashtag</option>
             <option value="photo">Photo</option>
           </select>
-          <input ref="searchQuery" required/>
-          <button onClick={this.searchTweets.bind(this)}>Search</button>
+          <input className="search-input" ref="searchQuery" required/>
+          <button className="search-btn" onClick={this.searchTweets.bind(this)}>Search</button>
         </div>
     )
   }

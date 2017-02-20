@@ -1,4 +1,4 @@
-const INITIAL_STATE = {displayTweets: [], displayState:'none'}
+const INITIAL_STATE = {displayTweets: [], displayState:'init'}
 
 export default function(state = INITIAL_STATE, action) {
     switch(action.type) {

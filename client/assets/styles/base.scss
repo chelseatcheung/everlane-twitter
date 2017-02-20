@@ -18,8 +18,15 @@
 body {
   font-family: Apercu;
   color: $black;
+  padding: $lg-pdg;
 }
 
 input, select, button, option {
   font-family: Apercu;
+  outline: none;
+}
+
+a {
+  color: $pink;
+  text-decoration: none;
 }

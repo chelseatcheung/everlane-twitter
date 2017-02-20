@@ -1,7 +1,6 @@
 import $ from 'jquery';
 
 export function searchTweets(params) {
-  console.log('params are ', params)
   return (dispatch) => {
     $.post('/search/tweets/', params, function(results){
       dispatch(displayTweets(results.results, results.display))
