@@ -4,9 +4,7 @@ import Home from './home/home';
 
 class App extends Component {
   checkCookie() {
-    var cookies = document.cookie
-    var index = cookies.indexOf('sessionToken=') + 13
-    return cookies[index] === 't' ? true : false
+    return document.cookie.includes('sessionToken=true');
   }
   render() {
     return this.checkCookie() ? <Home/> : <Login/>
