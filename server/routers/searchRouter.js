@@ -31,12 +31,18 @@ module.exports = function(express) {
         console.log('error is ', error);
         res.send(400, error);
       } else {
+        //function to convert military to standard time
+        const dateConverter = function(date) {
+          const parsedDate = "__" + date.substring(0, 10)  + ", " + date.substring(26, 30);
+          return parsedDate;
+        }
+        //set initial state
         if(tweets.statuses.length === 0){
           res.send({results:[], display: 'none'});
         }
+        //loop through image tweets and grab only the results with a media url
         else if(req.body.option === 'photo') {
           let photoTweets = [];
-          console.log('yo ', tweets.statuses)
           for(let i=0; i< tweets.statuses.length; i++) {
             let idx = tweets.statuses[i];
             let obj = {};
@@ -47,21 +53,22 @@ module.exports = function(express) {
               obj['photo'] = idx.entities.media[0].media_url;
               obj['text'] = idx.text;
               obj['user'] = idx.user.screen_name;
-              obj['date'] = idx.created_at;
+              obj['date'] = dateConverter(idx.created_at);
               obj['link'] = "https://twitter.com/" + idx.user.screen_name;
               photoTweets.push(obj);
             }
           }
           res.send({results:photoTweets, display: 'photo'});
+        //data for hashtag or phrase/word search
         } else {
           const data = tweets.statuses.map(function(index){
             let obj = {};
             obj['text'] = index.text;
             obj['user'] = index.user.screen_name;
-            obj['date'] = index.created_at;
+            obj['date'] = dateConverter(index.created_at);
             obj['link'] = "https://twitter.com/" + index.user.screen_name;
             return obj;
-          })
+          })  
           res.send({results:data, display: 'text'});
         }
       }

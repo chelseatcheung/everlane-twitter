@@ -9,6 +9,7 @@ class TextTweets extends Component {
             <div key={index.user}>
               <div className="tweet">
                 <p className="text-tweet">{index.text}</p>
+                <p className="text-date">{index.date}</p>
               </div>  
               <div className="user-tweet">
                 <a href={index.link}>@{index.user}</a>

@@ -13,6 +13,7 @@
 }
 
 .right-container {
+  margin-left: 20px;
   float:left;
   overflow: hidden;
 }
@@ -65,7 +66,7 @@
   margin-left: 10px;
   width: 100px;
   border: 1px solid $black;
-  background-color: #edecda;
+  background-color: $tan;
   height: 25px;
   font-size: $med-font;
 }
@@ -107,8 +108,58 @@
   padding-top: 45px;
 }
 
+.text-date {
+  width: 322px;
+  margin-top: -110px;
+  float: right;
+  color: $dark-tan;
+}
+
 .user-tweet {
   margin-top: -12px;
   padding-left: 40px;
   font-size: $med-font;
+}
+
+//PHOTO TWEET COMPONENT
+
+.hover-text {
+  font-size: 16px;
+  bottom: 100px;
+  word-wrap: break-word;
+  text-align:center;
+  font-size:12px;
+  color:black;
+  position:relative;
+  visibility:hidden; 
+}
+
+.photo-tweet {
+  max-height: 200px;
+  max-width:200px;
+}
+
+.hover-container:hover {
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.hover-container:hover .hover-text {
+  word-wrap: break-word;
+  visibility:visible;
+  font-size: $reg-font;
+  color: $black;
+}
+
+.photo-container {
+  overflow: auto;
+  display: inline-block;
+  width: 200px;
+  height: 300px;
+  text-align: center;
+}
+
+.photo-date {
+  float: right;
+  color: $dark-tan;
 }
