@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import { displayTweets, searchTweets } from '../../actions/index'
+import { searchTweets, displayTweets } from '../../actions/index';
 
 class SearchContainer extends Component {
   searchTweets(){
-    const value = this.refs.searchQuery.value;
     const option = this.refs.searchOption.value;
-    const params = {value, option}
-    this.props.searchTweets(params)
+    const value = this.refs.searchQuery.value;
+    const params = {value, option};
+    if(option === 'search') {
+      this.props.displayTweets('none', 'error')
+    } else {
+      this.props.displayTweets('none', 'loading');
+      this.props.searchTweets(params);
+    }
   } 
   render() {
     return (
         <div className="search-container">
           <select className="search-bar" ref="searchOption">
-            <option>Search By</option>
+            <option value="search">Search By</option>
             <option value="phrase">Word/Phrase</option>
             <option value="hashtag">Hashtag</option>
             <option value="photo">Photo</option>
@@ -33,7 +38,7 @@ function mapStateToProps(state) {
   }
 }
 
-const mapDispatchToProps = {searchTweets}
+const mapDispatchToProps = {searchTweets, displayTweets};
 
 
-export default connect(mapStateToProps, {searchTweets, displayTweets})(SearchContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer)

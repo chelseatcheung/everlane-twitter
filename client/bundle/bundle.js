@@ -20700,6 +20700,12 @@ const INITIAL_STATE = { displayTweets: [], displayState: 'init' };
         displayTweets: action.payload,
         displayState: action.display
       };
+      break;
+    case 'DISPLAY_SAVED_TWEETS':
+      return {
+        savedTweets: action.payload
+      };
+      break;
   }
   return state;
 };
@@ -20776,8 +20782,9 @@ if(false) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
-/* harmony export (immutable) */ __webpack_exports__["a"] = searchTweets;
-/* harmony export (immutable) */ __webpack_exports__["b"] = displayTweets;
+/* harmony export (immutable) */ __webpack_exports__["b"] = searchTweets;
+/* harmony export (immutable) */ __webpack_exports__["c"] = displayTweets;
+/* harmony export (immutable) */ __webpack_exports__["a"] = saveTweets;
 
 
 function searchTweets(params) {
@@ -20800,6 +20807,13 @@ function displayTweets(data, display) {
     type: 'DISPLAY_TWEETS',
     payload: data,
     display: display
+  };
+}
+
+function saveTweets() {
+  return {
+    type: 'DISPLAY_SAVED_TWEETS',
+    payload: 'placeholder'
   };
 }
 
@@ -20861,15 +20875,34 @@ class Home extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(32);
+
 
 
 class SavedContainer extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "saved-container" });
+    const saved = this.props.savedTweets === "[]" ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'saved-container' }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'saved-placeholder' },
+      'No saved tweets yet. Get to it!'
+    );
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'saved-container' },
+      saved
+    );
   }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = SavedContainer;
+function mapStateToProps(state) {
+  return {
+    savedTweets: state.savedTweets
+  };
+}
+
+/* harmony default export */ __webpack_exports__["a"] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps)(SavedContainer);
+
+// export default SavedContainer
 
 /***/ }),
 /* 103 */
@@ -20889,10 +20922,15 @@ class SavedContainer extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 class SearchContainer extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   searchTweets() {
-    const value = this.refs.searchQuery.value;
     const option = this.refs.searchOption.value;
+    const value = this.refs.searchQuery.value;
     const params = { value, option };
-    this.props.searchTweets(params);
+    if (option === 'search') {
+      this.props.displayTweets('none', 'error');
+    } else {
+      this.props.displayTweets('none', 'loading');
+      this.props.searchTweets(params);
+    }
   }
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -20903,7 +20941,7 @@ class SearchContainer extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         { className: 'search-bar', ref: 'searchOption' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'option',
-          null,
+          { value: 'search' },
           'Search By'
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -20938,9 +20976,9 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = { searchTweets: __WEBPACK_IMPORTED_MODULE_3__actions_index__["a" /* searchTweets */] };
+const mapDispatchToProps = { searchTweets: __WEBPACK_IMPORTED_MODULE_3__actions_index__["b" /* searchTweets */], displayTweets: __WEBPACK_IMPORTED_MODULE_3__actions_index__["c" /* displayTweets */] };
 
-/* harmony default export */ __webpack_exports__["a"] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { searchTweets: __WEBPACK_IMPORTED_MODULE_3__actions_index__["a" /* searchTweets */], displayTweets: __WEBPACK_IMPORTED_MODULE_3__actions_index__["b" /* displayTweets */] })(SearchContainer);
+/* harmony default export */ __webpack_exports__["a"] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(SearchContainer);
 
 /***/ }),
 /* 104 */
@@ -20954,9 +20992,22 @@ const mapDispatchToProps = { searchTweets: __WEBPACK_IMPORTED_MODULE_3__actions_
 class LoginContainer extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      "a",
-      { href: "/auth/twitter" },
-      "Log In"
+      "div",
+      { className: "login-container" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "p",
+        { className: "welcome-header" },
+        "Welcome to Twitter Search"
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { className: "login-button" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "a",
+          { href: "/auth/twitter" },
+          "Log In"
+        )
+      )
     );
   }
 }
@@ -20977,10 +21028,10 @@ class PhotoTweets extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       "div",
       null,
-      this.props.tweets.map(function (index) {
+      this.props.tweets.map(function (index, i) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "div",
-          { className: "photo-container", key: index.user },
+          { className: "photo-container", key: i },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "p",
             { className: "photo-date" },
@@ -21016,39 +21067,53 @@ class PhotoTweets extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_index__ = __webpack_require__(100);
+
 
 
 class TextTweets extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+  saveTweet(data) {
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_index__["a" /* saveTweets */])();
+    // window.localStorage.setItem('test', JSON.stringify('hello'));
+  }
   render() {
+    const that = this;
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      "div",
+      'div',
       null,
-      this.props.tweets.map(function (index) {
+      this.props.tweets.map(function (index, i) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { key: index.user },
+          'div',
+          { key: i },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { className: "tweet" },
+            'div',
+            { className: 'tweet' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "p",
-              { className: "text-tweet" },
+              'p',
+              { className: 'text-tweet' },
               index.text
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "p",
-              { className: "text-date" },
+              'p',
+              { className: 'text-date' },
               index.date
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { className: "user-tweet" },
+            'div',
+            { className: 'user-tweet' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "a",
+              'a',
               { href: index.link },
-              "@",
+              '@',
               index.user
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { onClick: function () {
+                  that.saveTweet(index);
+                } },
+              'save'
             )
           )
         );
@@ -21081,10 +21146,24 @@ class TweetsContainer extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
       case 'init':
         display = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null);
         break;
+      case 'error':
+        display = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'error' },
+          'Please select a search option!'
+        );
+        break;
+      case 'loading':
+        display = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'placeholder' },
+          'Currently fetching tweets for you...'
+        );
+        break;
       case 'none':
         display = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          null,
+          { className: 'placeholder' },
           'Sorry, no tweets matching your request.'
         );
         break;
@@ -21121,7 +21200,7 @@ exports = module.exports = __webpack_require__(109)();
 
 
 // module
-exports.push([module.i, "@font-face {\n  font-family: 'Apercu';\n  src: url(" + __webpack_require__(233) + "); }\n\n@font-face {\n  font-family: 'Apercu-light';\n  src: url(" + __webpack_require__(232) + "); }\n\n@font-face {\n  font-family: 'Apercu-bold';\n  src: url(" + __webpack_require__(231) + "); }\n\nbody {\n  font-family: Apercu;\n  color: #262626;\n  padding: 40px; }\n\ninput, select, button, option {\n  font-family: Apercu;\n  outline: none; }\n\na {\n  color: #e4b4be;\n  text-decoration: none; }\n\n.app-container {\n  margin: 0 auto;\n  width: 91%; }\n\n.left-container {\n  float: left; }\n\n.right-container {\n  margin-left: 20px;\n  float: left;\n  overflow: hidden; }\n\n.search-container {\n  margin: 0 auto;\n  width: 90%; }\n\n.tweets-container {\n  margin-top: 20px;\n  overflow: scroll;\n  width: 600px;\n  height: 400px; }\n\n.saved-container {\n  width: 600px;\n  height: 400px;\n  border: 1px solid #262626;\n  margin-top: 30px; }\n\n.search-bar {\n  background-image: url(" + __webpack_require__(234) + ");\n  background-repeat: no-repeat;\n  background-size: 15px;\n  background-position: 120px;\n  width: 145px;\n  -webkit-appearance: none;\n  -webkit-border-radius: 0px;\n  font-size: 18px;\n  border: none;\n  background-color: #fff;\n  border-bottom: 1px solid #262626; }\n\n.search-input {\n  width: 200px;\n  border: none;\n  border-bottom: 1px solid #262626;\n  margin-left: 10px;\n  font-size: 18px; }\n\n.search-btn {\n  margin-left: 10px;\n  width: 100px;\n  border: 1px solid #262626;\n  background-color: #edecda;\n  height: 25px;\n  font-size: 18px; }\n\n.search-btn:hover {\n  cursor: pointer;\n  background-color: #fff;\n  transition: .2s; }\n\n.logout-link {\n  float: right;\n  font-size: 18px;\n  font-family: Apercu-bold;\n  color: #262626; }\n\n.saved-header {\n  font-size: 30px;\n  font-family: Apercu-bold;\n  text-align: center; }\n\n.tweet {\n  background-image: url(" + __webpack_require__(235) + ");\n  background-repeat: no-repeat;\n  background-size: 500px 200px !important;\n  height: 200px;\n  margin: 0 auto;\n  margin-top: 40px; }\n\n.text-tweet {\n  width: 422px;\n  height: 175px;\n  margin-left: 50px;\n  padding-top: 45px; }\n\n.text-date {\n  width: 322px;\n  margin-top: -110px;\n  float: right;\n  color: #cdcb98; }\n\n.user-tweet {\n  margin-top: -12px;\n  padding-left: 40px;\n  font-size: 18px; }\n\n.hover-text {\n  font-size: 16px;\n  bottom: 100px;\n  word-wrap: break-word;\n  text-align: center;\n  font-size: 12px;\n  color: black;\n  position: relative;\n  visibility: hidden; }\n\n.photo-tweet {\n  max-height: 200px;\n  max-width: 200px; }\n\n.hover-container:hover {\n  cursor: pointer;\n  opacity: 0.3; }\n\n.hover-container:hover .hover-text {\n  word-wrap: break-word;\n  visibility: visible;\n  font-size: 16px;\n  color: #262626; }\n\n.photo-container {\n  overflow: auto;\n  display: inline-block;\n  width: 200px;\n  height: 300px;\n  text-align: center; }\n\n.photo-date {\n  float: right;\n  color: #cdcb98; }\n", ""]);
+exports.push([module.i, "@font-face {\n  font-family: 'Apercu';\n  src: url(" + __webpack_require__(233) + "); }\n\n@font-face {\n  font-family: 'Apercu-light';\n  src: url(" + __webpack_require__(232) + "); }\n\n@font-face {\n  font-family: 'Apercu-bold';\n  src: url(" + __webpack_require__(231) + "); }\n\nbody {\n  font-family: Apercu;\n  color: #262626;\n  padding: 40px; }\n\ninput, select, button, option {\n  font-family: Apercu;\n  outline: none; }\n\na {\n  color: #e4b4be;\n  text-decoration: none; }\n\n.login-container {\n  text-align: center;\n  padding: 100px; }\n\n.login-button {\n  width: 200px;\n  height: 40px;\n  border: 4px solid #e4b4be;\n  margin: 0 auto;\n  padding: 5px; }\n  .login-button a {\n    font-size: 30px; }\n\n.login-button:hover {\n  transition: .2s;\n  border: 4px solid #edecda;\n  background-color: #edecda; }\n  .login-button:hover a {\n    color: #fff; }\n\n.welcome-header {\n  font-size: 40px;\n  color: #edecda; }\n\n.app-container {\n  margin: 0 auto;\n  width: 91%; }\n\n.left-container {\n  float: left; }\n\n.right-container {\n  margin-left: 20px;\n  float: left;\n  overflow: hidden; }\n\n.search-container {\n  margin: 0 auto;\n  width: 90%; }\n\n.tweets-container {\n  margin-top: 20px;\n  overflow: scroll;\n  width: 600px;\n  height: 600px; }\n\n.saved-container {\n  width: 600px;\n  height: 600px;\n  border: 1px solid #262626;\n  margin-top: 30px; }\n\n.search-bar {\n  background-image: url(" + __webpack_require__(234) + ");\n  background-repeat: no-repeat;\n  background-size: 15px;\n  background-position: 120px;\n  width: 145px;\n  -webkit-appearance: none;\n  -webkit-border-radius: 0px;\n  font-size: 18px;\n  border: none;\n  background-color: #fff;\n  border-bottom: 1px solid #262626; }\n\n.search-input {\n  width: 200px;\n  border: none;\n  border-bottom: 1px solid #262626;\n  margin-left: 10px;\n  font-size: 18px; }\n\n.search-btn {\n  margin-left: 10px;\n  width: 100px;\n  border: 1px solid #262626;\n  background-color: #edecda;\n  height: 25px;\n  font-size: 18px; }\n\n.search-btn:hover {\n  cursor: pointer;\n  background-color: #fff;\n  transition: .2s; }\n\n.logout-link {\n  float: right;\n  font-size: 18px;\n  font-family: Apercu-bold;\n  color: #262626; }\n\n.saved-header {\n  font-size: 30px;\n  font-family: Apercu-bold;\n  text-align: center; }\n\n.placeholder {\n  padding: 40px;\n  color: #e4b4be;\n  text-align: center; }\n\n.error {\n  color: #cc0000;\n  float: left;\n  font-size: 18px;\n  text-align: center; }\n\n.tweet {\n  background-image: url(" + __webpack_require__(235) + ");\n  background-repeat: no-repeat;\n  background-size: 500px 200px !important;\n  height: 200px;\n  margin: 0 auto;\n  margin-top: 40px; }\n\n.text-tweet {\n  width: 422px;\n  height: 175px;\n  margin-left: 50px;\n  padding-top: 45px; }\n\n.text-date {\n  width: 322px;\n  margin-top: -110px;\n  float: right;\n  color: #cdcb98; }\n\n.user-tweet {\n  text-decoration: underline;\n  margin-top: -12px;\n  padding-left: 40px;\n  font-size: 18px; }\n\n.hover-text {\n  font-size: 16px;\n  bottom: 100px;\n  word-wrap: break-word;\n  text-align: center;\n  font-size: 12px;\n  color: black;\n  position: relative;\n  visibility: hidden; }\n\n.photo-tweet {\n  max-height: 200px;\n  max-width: 200px; }\n\n.hover-container:hover {\n  cursor: pointer;\n  opacity: 0.3; }\n\n.hover-container:hover .hover-text {\n  word-wrap: break-word;\n  visibility: visible;\n  font-size: 16px;\n  color: #262626; }\n\n.photo-container {\n  overflow: auto;\n  display: inline-block;\n  width: 200px;\n  height: 300px;\n  text-align: center; }\n\n.photo-date {\n  float: right;\n  color: #cdcb98; }\n\n.saved-placeholder {\n  padding: 40px;\n  color: #cdcb98;\n  font-size: 18px;\n  text-align: center; }\n", ""]);
 
 // exports
 

@@ -7,6 +7,12 @@ export default function(state = INITIAL_STATE, action) {
           displayTweets: action.payload,
           displayState: action.display
         }
+        break;
+      case 'DISPLAY_SAVED_TWEETS':
+        return {
+          savedTweets: action.payload
+        }
+        break;
     }
   return state;
 }

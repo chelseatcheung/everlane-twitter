@@ -22,3 +22,11 @@ export function displayTweets(data, display){
     display: display
   }
 }
+
+
+export function saveTweets() {
+  return {
+    type: 'DISPLAY_SAVED_TWEETS',
+    payload: 'placeholder'
+  }
+}

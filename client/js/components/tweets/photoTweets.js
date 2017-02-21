@@ -4,9 +4,9 @@ class PhotoTweets extends Component {
   render() {
     return (
       <div>
-      {this.props.tweets.map(function(index){
+      {this.props.tweets.map(function(index, i){
         return (
-          <div className="photo-container" key={index.user}>
+          <div className="photo-container" key={i}>
             <p className="photo-date">{index.date}</p>
             <span className="hover-container">
               <a href={index.link}><img className="photo-tweet" src={index.photo}/>

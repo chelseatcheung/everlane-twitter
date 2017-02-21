@@ -11,8 +11,14 @@ class TweetsContainer extends Component {
       case 'init':
         display = <div></div>
         break;
+      case 'error':
+        display = <div className="error">Please select a search option!</div>
+        break;
+      case 'loading':
+        display = <div className="placeholder">Currently fetching tweets for you...</div>
+        break;
       case 'none':
-        display = <div>Sorry, no tweets matching your request.</div>
+        display = <div className="placeholder">Sorry, no tweets matching your request.</div>
         break;
       case 'photo':
         display = <PhotoTweets tweets={this.props.displayTweets}/>

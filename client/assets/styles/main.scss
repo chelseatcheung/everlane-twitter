@@ -1,6 +1,37 @@
 @import './variables.scss';
 @import './base.scss';
 
+//LOGIN COMPONENT
+.login-container {
+  text-align: center;
+  padding: $lg-pdg;
+}
+
+.login-button {
+  width: 200px;
+  height: 40px;
+  border: 4px solid $pink;
+  margin: 0 auto;
+  padding: 5px;
+  a {
+    font-size: $lg-font;
+  }
+}
+
+.login-button:hover {
+  transition: .2s;
+  border:4px solid $tan;
+  background-color: $tan;
+  a {
+    color: $white;
+  }
+}
+
+.welcome-header {
+  font-size: 40px;
+  color: $tan;
+}
+
 //HOME COMPONENT
 
 .app-container {
@@ -27,12 +58,12 @@
   margin-top:20px;
   overflow: scroll;
   width: 600px;
-  height: 400px; 
+  height: 600px; 
 }
 
 .saved-container {
   width: 600px;
-  height: 400px;
+  height: 600px;
   border: 1px solid $black; 
   margin-top: 30px;
 }
@@ -90,6 +121,21 @@
   text-align: center;
 }
 
+//TWEET COMPONENT
+
+.placeholder {
+  padding: $med-pdg;
+  color: $pink;
+  text-align: center;
+}
+
+.error {
+  color: $red;
+  float: left;
+  font-size: $med-font;
+  text-align: center;
+}
+
 //TEXT TWEET COMPONENT
 
 .tweet {
@@ -116,6 +162,7 @@
 }
 
 .user-tweet {
+  text-decoration: underline;
   margin-top: -12px;
   padding-left: 40px;
   font-size: $med-font;
@@ -162,4 +209,13 @@
 .photo-date {
   float: right;
   color: $dark-tan;
+}
+
+//SAVED CONTAINER
+
+.saved-placeholder {
+  padding: $med-pdg;
+  color: $dark-tan;
+  font-size: $med-font;
+  text-align: center;
 }
