@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Saved from './saved';
+import Saved from '../saved/saved';
 import Search from './search';
 import Tweets from '../tweets/tweets';
 

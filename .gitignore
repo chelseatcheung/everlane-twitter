@@ -1,3 +1,4 @@
 node_modules
 secrets.js
-/client/bundle
+./client/bundle
+./client/bundle.js

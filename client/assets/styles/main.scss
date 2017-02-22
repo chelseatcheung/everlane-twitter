@@ -51,7 +51,7 @@
 
 .search-container {
   margin: 0 auto;
-  width: 90%;
+  width: 81%;
 }
 
 .tweets-container {
@@ -65,7 +65,9 @@
   width: 600px;
   height: 600px;
   border: 1px solid $black; 
+  border-bottom: none;
   margin-top: 30px;
+  overflow: scroll;
 }
 
 
@@ -108,18 +110,6 @@
   transition: .2s;
 }
 
-.logout-link {
-  float:right;
-  font-size: $med-font;
-  font-family: Apercu-bold;
-  color: $black;
-}
-
-.saved-header {
-  font-size: $lg-font;
-  font-family: Apercu-bold;
-  text-align: center;
-}
 
 //TWEET COMPONENT
 
@@ -161,11 +151,32 @@
   color: $dark-tan;
 }
 
-.user-tweet {
+.tweet-outer {
   text-decoration: underline;
   margin-top: -12px;
   padding-left: 40px;
   font-size: $med-font;
+}
+
+.save-img {
+  background-image: url('../images/save-dark.png');
+  background-repeat: no-repeat;
+  background-size:30px;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  float: right;
+  margin-right: 150px;
+}
+
+.save-img:hover {
+ background-image: url('../images/save-light.png'); 
+ background-repeat: no-repeat;
+ background-size:30px;
+ height: 30px;
+ width: 30px;
+ display: inline-block;
+ cursor: pointer;
 }
 
 //PHOTO TWEET COMPONENT
@@ -211,11 +222,63 @@
   color: $dark-tan;
 }
 
-//SAVED CONTAINER
+//SAVED COMPONENT
 
 .saved-placeholder {
   padding: $med-pdg;
-  color: $dark-tan;
+  color: $black;
   font-size: $med-font;
   text-align: center;
+}
+.logout-link {
+  text-align:right;
+  font-size: $med-font;
+  font-family: Apercu-bold;
+  color: $black;
+}
+
+.saved-header {
+  font-size: $lg-font;
+  font-family: Apercu-bold;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  margin-top: -7px;
+}
+
+.saved-header:after
+{
+  content:'';
+  width:14em; 
+  border-bottom:1px solid $black;
+  position:absolute;
+  top:50%;
+}
+:after {
+  left:100%;
+}
+:before {
+  right:100%;
+}
+
+//SAVED TWEETS COMPONENT
+
+.savedtweets-container {
+  padding: 20px;
+}
+
+.saved-text {
+  padding: $small-pdg;
+  border-bottom: 3px solid $tan;
+}
+
+.delete-button {
+  text-align: right;
+  font-family: Apercu-bold;
+  font-size: 24px;
+}
+
+.delete-button:hover {
+  cursor: pointer;
+  color: $red;
 }

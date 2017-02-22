@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { saveTweets } from '../../actions/index';
+import { connect } from 'react-redux';
 
 class TextTweets extends Component {
   saveTweet(data) {
-    saveTweets()
-    // window.localStorage.setItem('test', JSON.stringify('hello'));
+    this.props.saveTweets(data)
+    window.localStorage.setItem('test', JSON.stringify('hello'));
   }
   render(){
     const that = this;
@@ -17,9 +18,9 @@ class TextTweets extends Component {
                 <p className="text-tweet">{index.text}</p>
                 <p className="text-date">{index.date}</p>
               </div>  
-              <div className="user-tweet">
+              <div className="tweet-outer">
                 <a href={index.link}>@{index.user}</a>
-                <div onClick={function(){that.saveTweet(index)}}>save</div>
+                <div onClick={function(){that.saveTweet(index)}} className="save-img"></div>
               </div>
             </div>
           )
@@ -29,5 +30,4 @@ class TextTweets extends Component {
   }
 }
 
-
-export default TextTweets;
+export default connect(null, {saveTweets})(TextTweets);
