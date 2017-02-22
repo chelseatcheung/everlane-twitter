@@ -4,8 +4,11 @@ import { connect } from 'react-redux';
 
 class TextTweets extends Component {
   saveTweet(data) {
-    this.props.saveTweets(data)
-    window.localStorage.setItem('test', JSON.stringify('hello'));
+    let tweet = window.localStorage.getItem('saved');
+    let parsed = JSON.parse(tweet);
+    parsed.push(data)
+    window.localStorage.setItem('saved', JSON.stringify(parsed));
+    this.props.saveTweets()
   }
   render(){
     const that = this;

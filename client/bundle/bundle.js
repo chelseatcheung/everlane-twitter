@@ -20676,6 +20676,11 @@ module.exports = g;
 
 
 class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+  componentWillMount() {
+    if (!window.localStorage.getItem('saved')) {
+      window.localStorage.setItem('saved', '[]');
+    }
+  }
   checkCookie() {
     return document.cookie.includes('sessionToken=true');
   }
@@ -20761,8 +20766,8 @@ if(false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
 /* harmony export (immutable) */ __webpack_exports__["c"] = searchTweets;
 /* harmony export (immutable) */ __webpack_exports__["d"] = displayTweets;
-/* harmony export (immutable) */ __webpack_exports__["b"] = saveTweets;
-/* harmony export (immutable) */ __webpack_exports__["a"] = deleteTweets;
+/* harmony export (immutable) */ __webpack_exports__["a"] = saveTweets;
+/* harmony export (immutable) */ __webpack_exports__["b"] = deleteTweets;
 
 
 function searchTweets(params) {
@@ -20781,19 +20786,15 @@ function displayTweets(data, display) {
   };
 }
 
-function saveTweets(data) {
-  console.log('in save tweets ', data);
+function saveTweets() {
   return {
-    type: 'DISPLAY_SAVED_TWEETS',
-    payload: data
+    type: 'DISPLAY_SAVED_TWEETS'
   };
 }
 
-function deleteTweets(idx) {
-  console.log('in delete tweets');
+function deleteTweets() {
   return {
-    type: 'DELETE_SAVED_TWEETS',
-    payload: idx
+    type: 'DELETE_SAVED_TWEETS'
   };
 }
 
@@ -21020,8 +21021,11 @@ class PhotoTweets extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 class TextTweets extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   saveTweet(data) {
-    this.props.saveTweets(data);
-    window.localStorage.setItem('test', JSON.stringify('hello'));
+    let tweet = window.localStorage.getItem('saved');
+    let parsed = JSON.parse(tweet);
+    parsed.push(data);
+    window.localStorage.setItem('saved', JSON.stringify(parsed));
+    this.props.saveTweets();
   }
   render() {
     const that = this;
@@ -21065,7 +21069,7 @@ class TextTweets extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(null, { saveTweets: __WEBPACK_IMPORTED_MODULE_1__actions_index__["b" /* saveTweets */] })(TextTweets);
+/* harmony default export */ __webpack_exports__["a"] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(null, { saveTweets: __WEBPACK_IMPORTED_MODULE_1__actions_index__["a" /* saveTweets */] })(TextTweets);
 
 /***/ }),
 /* 107 */
@@ -21143,7 +21147,7 @@ exports = module.exports = __webpack_require__(109)();
 
 
 // module
-exports.push([module.i, "@font-face {\n  font-family: 'Apercu';\n  src: url(" + __webpack_require__(233) + "); }\n\n@font-face {\n  font-family: 'Apercu-light';\n  src: url(" + __webpack_require__(232) + "); }\n\n@font-face {\n  font-family: 'Apercu-bold';\n  src: url(" + __webpack_require__(231) + "); }\n\nbody {\n  font-family: Apercu;\n  color: #262626;\n  padding: 40px; }\n\ninput, select, button, option {\n  font-family: Apercu;\n  outline: none; }\n\na {\n  color: #e4b4be;\n  text-decoration: none; }\n\n.login-container {\n  text-align: center;\n  padding: 100px; }\n\n.login-button {\n  width: 200px;\n  height: 40px;\n  border: 4px solid #e4b4be;\n  margin: 0 auto;\n  padding: 5px; }\n  .login-button a {\n    font-size: 30px; }\n\n.login-button:hover {\n  transition: .2s;\n  border: 4px solid #edecda;\n  background-color: #edecda; }\n  .login-button:hover a {\n    color: #fff; }\n\n.welcome-header {\n  font-size: 40px;\n  color: #edecda; }\n\n.app-container {\n  margin: 0 auto;\n  width: 91%; }\n\n.left-container {\n  float: left; }\n\n.right-container {\n  margin-left: 20px;\n  float: left;\n  overflow: hidden; }\n\n.search-container {\n  margin: 0 auto;\n  width: 81%; }\n\n.tweets-container {\n  margin-top: 20px;\n  overflow: scroll;\n  width: 600px;\n  height: 600px; }\n\n.saved-container {\n  width: 600px;\n  height: 600px;\n  border: 1px solid #262626;\n  border-bottom: none;\n  margin-top: 30px;\n  overflow: scroll; }\n\n.search-bar {\n  background-image: url(" + __webpack_require__(234) + ");\n  background-repeat: no-repeat;\n  background-size: 15px;\n  background-position: 120px;\n  width: 145px;\n  -webkit-appearance: none;\n  -webkit-border-radius: 0px;\n  font-size: 18px;\n  border: none;\n  background-color: #fff;\n  border-bottom: 1px solid #262626; }\n\n.search-input {\n  width: 200px;\n  border: none;\n  border-bottom: 1px solid #262626;\n  margin-left: 10px;\n  font-size: 18px; }\n\n.search-btn {\n  margin-left: 10px;\n  width: 100px;\n  border: 1px solid #262626;\n  background-color: #edecda;\n  height: 25px;\n  font-size: 18px; }\n\n.search-btn:hover {\n  cursor: pointer;\n  background-color: #fff;\n  transition: .2s; }\n\n.placeholder {\n  padding: 40px;\n  color: #e4b4be;\n  text-align: center; }\n\n.error {\n  color: #cc0000;\n  float: left;\n  font-size: 18px;\n  text-align: center; }\n\n.tweet {\n  background-image: url(" + __webpack_require__(235) + ");\n  background-repeat: no-repeat;\n  background-size: 500px 200px !important;\n  height: 200px;\n  margin: 0 auto;\n  margin-top: 40px; }\n\n.text-tweet {\n  width: 422px;\n  height: 175px;\n  margin-left: 50px;\n  padding-top: 45px; }\n\n.text-date {\n  width: 322px;\n  margin-top: -110px;\n  float: right;\n  color: #cdcb98; }\n\n.tweet-outer {\n  text-decoration: underline;\n  margin-top: -12px;\n  padding-left: 40px;\n  font-size: 18px; }\n\n.save-img {\n  background-image: url(" + __webpack_require__(243) + ");\n  background-repeat: no-repeat;\n  background-size: 30px;\n  height: 30px;\n  width: 30px;\n  display: inline-block;\n  float: right;\n  margin-right: 150px; }\n\n.save-img:hover {\n  background-image: url(" + __webpack_require__(244) + ");\n  background-repeat: no-repeat;\n  background-size: 30px;\n  height: 30px;\n  width: 30px;\n  display: inline-block;\n  cursor: pointer; }\n\n.hover-text {\n  font-size: 16px;\n  bottom: 100px;\n  word-wrap: break-word;\n  text-align: center;\n  font-size: 12px;\n  color: black;\n  position: relative;\n  visibility: hidden; }\n\n.photo-tweet {\n  max-height: 200px;\n  max-width: 200px; }\n\n.hover-container:hover {\n  cursor: pointer;\n  opacity: 0.3; }\n\n.hover-container:hover .hover-text {\n  word-wrap: break-word;\n  visibility: visible;\n  font-size: 16px;\n  color: #262626; }\n\n.photo-container {\n  overflow: auto;\n  display: inline-block;\n  width: 200px;\n  height: 300px;\n  text-align: center; }\n\n.photo-date {\n  float: right;\n  color: #cdcb98; }\n\n.saved-placeholder {\n  padding: 40px;\n  color: #262626;\n  font-size: 18px;\n  text-align: center; }\n\n.logout-link {\n  text-align: right;\n  font-size: 18px;\n  font-family: Apercu-bold;\n  color: #262626; }\n\n.saved-header {\n  font-size: 30px;\n  font-family: Apercu-bold;\n  text-align: center;\n  display: inline-block;\n  position: relative;\n  margin-top: -7px; }\n\n.saved-header:after {\n  content: '';\n  width: 14em;\n  border-bottom: 1px solid #262626;\n  position: absolute;\n  top: 50%; }\n\n:after {\n  left: 100%; }\n\n:before {\n  right: 100%; }\n\n.savedtweets-container {\n  padding: 20px; }\n\n.saved-text {\n  padding: 10px;\n  border-bottom: 3px solid #edecda; }\n\n.delete-button {\n  text-align: right;\n  font-family: Apercu-bold;\n  font-size: 24px; }\n\n.delete-button:hover {\n  cursor: pointer;\n  color: #cc0000; }\n", ""]);
+exports.push([module.i, "@font-face {\n  font-family: 'Apercu';\n  src: url(" + __webpack_require__(233) + "); }\n\n@font-face {\n  font-family: 'Apercu-light';\n  src: url(" + __webpack_require__(232) + "); }\n\n@font-face {\n  font-family: 'Apercu-bold';\n  src: url(" + __webpack_require__(231) + "); }\n\nbody {\n  font-family: Apercu;\n  color: #262626;\n  padding: 40px; }\n\ninput, select, button, option {\n  font-family: Apercu;\n  outline: none; }\n\na {\n  color: #e4b4be;\n  text-decoration: none; }\n\n.login-container {\n  text-align: center;\n  padding: 100px; }\n\n.login-button {\n  width: 200px;\n  height: 40px;\n  border: 4px solid #e4b4be;\n  margin: 0 auto;\n  padding: 5px; }\n  .login-button a {\n    font-size: 30px; }\n\n.login-button:hover {\n  transition: .2s;\n  border: 4px solid #edecda;\n  background-color: #edecda; }\n  .login-button:hover a {\n    color: #fff; }\n\n.welcome-header {\n  font-size: 40px;\n  color: #edecda; }\n\n.app-container {\n  margin: 0 auto;\n  width: 91%; }\n\n.left-container {\n  float: left; }\n\n.right-container {\n  margin-left: 20px;\n  float: left;\n  overflow: hidden; }\n\n.search-container {\n  margin: 0 auto;\n  width: 81%; }\n\n.tweets-container {\n  margin-top: 20px;\n  overflow: scroll;\n  width: 600px;\n  height: 600px; }\n\n.saved-container {\n  width: 600px;\n  height: 600px;\n  border: 1px solid #262626;\n  border-bottom: none;\n  margin-top: 30px;\n  overflow: scroll; }\n\n.search-bar {\n  background-image: url(" + __webpack_require__(234) + ");\n  background-repeat: no-repeat;\n  background-size: 15px;\n  background-position: 120px;\n  width: 145px;\n  -webkit-appearance: none;\n  -webkit-border-radius: 0px;\n  font-size: 18px;\n  border: none;\n  background-color: #fff;\n  border-bottom: 1px solid #262626; }\n\n.search-input {\n  width: 200px;\n  border: none;\n  border-bottom: 1px solid #262626;\n  margin-left: 10px;\n  font-size: 18px; }\n\n.search-btn {\n  margin-left: 10px;\n  width: 100px;\n  border: 1px solid #262626;\n  background-color: #edecda;\n  height: 25px;\n  font-size: 18px; }\n\n.search-btn:hover {\n  cursor: pointer;\n  background-color: #fff;\n  transition: .2s; }\n\n.placeholder {\n  padding: 40px;\n  color: #e4b4be;\n  text-align: center; }\n\n.error {\n  color: #cc0000;\n  float: left;\n  font-size: 18px;\n  text-align: center; }\n\n.tweet {\n  background-image: url(" + __webpack_require__(235) + ");\n  background-repeat: no-repeat;\n  background-size: 500px 200px !important;\n  height: 200px;\n  margin: 0 auto;\n  margin-top: 40px; }\n\n.text-tweet {\n  width: 422px;\n  height: 175px;\n  margin-left: 40px;\n  padding-top: 45px; }\n\n.text-date {\n  width: 322px;\n  margin-top: -110px;\n  float: right;\n  color: #cdcb98; }\n\n.tweet-outer {\n  text-decoration: underline;\n  margin-top: -12px;\n  padding-left: 40px;\n  font-size: 18px; }\n\n.save-img {\n  background-image: url(" + __webpack_require__(243) + ");\n  background-repeat: no-repeat;\n  background-size: 30px;\n  height: 30px;\n  width: 30px;\n  display: inline-block;\n  float: right;\n  margin-right: 150px; }\n\n.save-img:hover {\n  background-image: url(" + __webpack_require__(244) + ");\n  background-repeat: no-repeat;\n  background-size: 30px;\n  height: 30px;\n  width: 30px;\n  display: inline-block;\n  cursor: pointer; }\n\n.hover-text {\n  font-size: 16px;\n  bottom: 100px;\n  word-wrap: break-word;\n  text-align: center;\n  font-size: 12px;\n  color: black;\n  position: relative;\n  visibility: hidden; }\n\n.photo-tweet {\n  max-height: 200px;\n  max-width: 200px; }\n\n.hover-container:hover {\n  cursor: pointer;\n  opacity: 0.3; }\n\n.hover-container:hover .hover-text {\n  word-wrap: break-word;\n  visibility: visible;\n  font-size: 16px;\n  color: #262626; }\n\n.photo-container {\n  overflow: auto;\n  display: inline-block;\n  width: 200px;\n  height: 300px;\n  text-align: center; }\n\n.photo-date {\n  float: right;\n  color: #cdcb98; }\n\n.saved-placeholder {\n  padding: 40px;\n  color: #262626;\n  font-size: 18px;\n  text-align: center; }\n\n.logout-link {\n  text-align: right;\n  font-size: 18px;\n  font-family: Apercu-bold;\n  color: #262626; }\n\n.saved-header {\n  font-size: 30px;\n  font-family: Apercu-bold;\n  text-align: center;\n  display: inline-block;\n  position: relative;\n  margin-top: -7px; }\n\n.saved-header:after {\n  content: '';\n  width: 14em;\n  border-bottom: 1px solid #262626;\n  position: absolute;\n  top: 50%; }\n\n:after {\n  left: 100%; }\n\n:before {\n  right: 100%; }\n\n.savedtweets-container {\n  padding: 20px; }\n\n.saved-text {\n  padding: 10px;\n  border-bottom: 3px solid #edecda; }\n\n.delete-button {\n  text-align: right;\n  font-family: Apercu-bold;\n  font-size: 24px; }\n\n.delete-button:hover {\n  cursor: pointer;\n  color: #cc0000; }\n", ""]);
 
 // exports
 
@@ -34919,11 +34923,16 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_dom__["render"])(__WEBPA
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__savedTweets__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions_index__ = __webpack_require__(100);
+
 
 
 
 
 class SavedContainer extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+  componentWillMount() {
+    this.props.saveTweets();
+  }
   render() {
     const parsed = JSON.parse(this.props.savedTweets);
     const saved = this.props.savedTweets === "[]" ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -34945,7 +34954,7 @@ function mapStateToProps(state) {
   };
 }
 
-/* harmony default export */ __webpack_exports__["a"] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps)(SavedContainer);
+/* harmony default export */ __webpack_exports__["a"] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { saveTweets: __WEBPACK_IMPORTED_MODULE_3__actions_index__["a" /* saveTweets */] })(SavedContainer);
 
 /***/ }),
 /* 239 */
@@ -34962,7 +34971,11 @@ function mapStateToProps(state) {
 
 class SavedTweets extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   deleteTweet(idx) {
-    this.props.deleteTweets(idx);
+    let tweet = window.localStorage.getItem('saved');
+    let parsed = JSON.parse(tweet);
+    parsed.splice(idx, 1);
+    window.localStorage.setItem('saved', JSON.stringify(parsed));
+    this.props.deleteTweets();
   }
   render() {
     const that = this;
@@ -34995,7 +35008,7 @@ class SavedTweets extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(null, { deleteTweets: __WEBPACK_IMPORTED_MODULE_1__actions_index__["a" /* deleteTweets */] })(SavedTweets);
+/* harmony default export */ __webpack_exports__["a"] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(null, { deleteTweets: __WEBPACK_IMPORTED_MODULE_1__actions_index__["b" /* deleteTweets */] })(SavedTweets);
 
 /***/ }),
 /* 240 */
@@ -35007,9 +35020,7 @@ const INITIAL_STATE = { savedTweets: "[]", displayTweets: [], displayState: 'ini
 /* harmony default export */ __webpack_exports__["a"] = function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'DISPLAY_SAVED_TWEETS':
-      const parsed = JSON.parse(state.savedTweets);
-      parsed.push(action.payload);
-      const tweets = JSON.stringify(parsed);
+      const tweets = window.localStorage.getItem('saved');
       return {
         savedTweets: tweets,
         displayTweets: state.displayTweets,
@@ -35024,11 +35035,9 @@ const INITIAL_STATE = { savedTweets: "[]", displayTweets: [], displayState: 'ini
       };
       break;
     case 'DELETE_SAVED_TWEETS':
-      const deleteParsed = JSON.parse(state.savedTweets);
-      deleteParsed.splice(action.payload, 1);
-      const deleteTweet = JSON.stringify(deleteParsed);
+      const deleted = window.localStorage.getItem('saved');
       return {
-        savedTweets: deleteTweet,
+        savedTweets: deleted,
         displayTweets: state.displayTweets,
         displayState: state.displayState
       };

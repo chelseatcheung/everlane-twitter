@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 
 class SavedTweets extends Component {
   deleteTweet(idx){
-    this.props.deleteTweets(idx)
+    let tweet = window.localStorage.getItem('saved');
+    let parsed = JSON.parse(tweet);
+    parsed.splice(idx, 1)
+    window.localStorage.setItem('saved', JSON.stringify(parsed));
+    this.props.deleteTweets()
   }
   render() {
   const that = this;

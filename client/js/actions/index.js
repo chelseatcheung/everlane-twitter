@@ -17,18 +17,14 @@ export function displayTweets(data, display){
 }
 
 
-export function saveTweets(data) {
-  console.log('in save tweets ', data)
+export function saveTweets() {
   return {
-    type: 'DISPLAY_SAVED_TWEETS',
-    payload: data
+    type: 'DISPLAY_SAVED_TWEETS'
   }
 }
 
-export function deleteTweets(idx) {
-  console.log('in delete tweets')
+export function deleteTweets() {
   return {
-    type: 'DELETE_SAVED_TWEETS',
-    payload: idx
+    type: 'DELETE_SAVED_TWEETS'
   }
 }

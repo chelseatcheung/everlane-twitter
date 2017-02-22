@@ -41,6 +41,8 @@
     "url-loader": "^0.5.7"
   },
   "devDependencies": {
+    "jasmine": "^2.5.3",
+    "supertest": "^3.0.0",
     "webpack": "^2.2.1"
   }
 }

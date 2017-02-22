@@ -3,9 +3,7 @@ const INITIAL_STATE = {savedTweets: "[]", displayTweets: [], displayState:'init'
 export default function(state = INITIAL_STATE, action) {
     switch(action.type) {
       case 'DISPLAY_SAVED_TWEETS':
-        const parsed = JSON.parse(state.savedTweets)
-        parsed.push(action.payload)
-        const tweets = JSON.stringify(parsed)
+        const tweets = window.localStorage.getItem('saved');
         return {
           savedTweets: tweets,
           displayTweets: state.displayTweets,
@@ -20,11 +18,9 @@ export default function(state = INITIAL_STATE, action) {
         }
         break;
       case 'DELETE_SAVED_TWEETS':
-        const deleteParsed = JSON.parse(state.savedTweets)
-        deleteParsed.splice(action.payload, 1)
-        const deleteTweet = JSON.stringify(deleteParsed)
+        const deleted = window.localStorage.getItem('saved');
         return {
-          savedTweets: deleteTweet,
+          savedTweets: deleted,
           displayTweets: state.displayTweets,
           displayState: state.displayState 
         }
