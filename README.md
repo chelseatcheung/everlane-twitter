@@ -1,11 +1,11 @@
 ### twitter-client
 
-Web app that utilizes twitter API allow user to search for tweets by word/phrase, hashtag, or photo. Utilizes React/Redux in the front end and Node/Express as the server.
+Web app that utilizes twitter API allow user to search for tweets by word/phrase, hashtag, or photo. Uses React/Redux in the front end and Node/Express as the server.
 
 ### getting started
 
-*Require your Key/Access token on apps.twitter.com
-*Create a secrets.js file in main project directory
+* Require your Key/Access tokens on apps.twitter.com
+* Create a secrets.js file in main project directory
 * Place this in your secrets.js file and fill out the values accordingly: 
 ```
  module.exports = {
