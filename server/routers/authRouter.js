@@ -1,5 +1,4 @@
 const OAuth = require('oauth').OAuth;
-const secret = require('../../secrets.js');
 
 let oa = new OAuth(
   "https://api.twitter.com/oauth/request_token",

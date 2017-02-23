@@ -1,5 +1,4 @@
 const Twitter = require('twitter');
-const secret = require('../../secrets.js');
 
 const twitter = new Twitter({
   consumer_key: process.env.CONSUMER_KEY,
