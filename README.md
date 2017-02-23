@@ -2,18 +2,18 @@
 
 Web app that utilizes twitter API allow user to search for tweets by word/phrase, hashtag, or photo. Uses React/Redux in the front end and Node/Express as the server.
 
+Deployed app: https://twitterclient-search.herokuapp.com/
+
 ### getting started
 
 * Require your Key/Access tokens on apps.twitter.com
 * Create a secrets.js file in main project directory
 * Place this in your secrets.js file and fill out the values accordingly: 
 ```
- module.exports = {
- CONSUMER_KEY: yourConsumerKey,
- CONSUMER_SECRET: yourConsumerSecret,
- ACCESS_TOKEN_KEY: yourAccessTokenKey,
- ACCESS_TOKEN_SECRET: yourAccessTokenSecret,
-}
+ CONSUMER_KEY=yourConsumerKey
+ CONSUMER_SECRET=yourConsumerSecret
+ ACCESS_TOKEN_KEY=yourAccessTokenKey
+ ACCESS_TOKEN_SECRET=yourAccessTokenSecret
 ```
 
 ### starting up the app
