@@ -7,8 +7,8 @@ Deployed app: https://twitterclient-search.herokuapp.com/
 ### getting started
 
 * Require your Key/Access tokens on apps.twitter.com
-* Create a secrets.js file in main project directory
-* Place this in your secrets.js file and fill out the values accordingly: 
+* Create a .env file in main project directory
+* Place this in your .env file and fill out the values accordingly: 
 ```
  CONSUMER_KEY=yourConsumerKey
  CONSUMER_SECRET=yourConsumerSecret
