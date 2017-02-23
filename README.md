@@ -7,6 +7,7 @@ Deployed app: https://twitterclient-search.herokuapp.com/
 ### getting started
 
 * Require your Key/Access tokens on apps.twitter.com
+* Go to 'settings' in your apps.twitter.com account and set the callback url to "http://localhost:3000/auth/twitter/callback"
 * Create a .env file in main project directory
 * Place this in your .env file and fill out the values accordingly: 
 ```
@@ -15,6 +16,7 @@ Deployed app: https://twitterclient-search.herokuapp.com/
  ACCESS_TOKEN_KEY=yourAccessTokenKey
  ACCESS_TOKEN_SECRET=yourAccessTokenSecret
 ```
+* Go to /server/rouers/authRouter.js, and change line 9 to "http://localhost:3000/auth/twitter/callback"
 
 ### starting up the app
 
