@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-
+const dotenv = require('dotenv').load();
 
 app.use(express.static(path.join(__dirname, '../client')));;
 app.use(cookieParser());

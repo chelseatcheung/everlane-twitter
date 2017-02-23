@@ -1,10 +1,11 @@
 const OAuth = require('oauth').OAuth;
 const secret = require('../../secrets.js');
+
 let oa = new OAuth(
   "https://api.twitter.com/oauth/request_token",
   "https://api.twitter.com/oauth/access_token",
-  secret.CONSUMER_KEY,
-  secret.CONSUMER_SECRET,
+  process.env.CONSUMER_KEY,
+  process.env.CONSUMER_SECRET,
   "1.0",
   "http://localhost:3000/auth/twitter/callback",
   "HMAC-SHA1"

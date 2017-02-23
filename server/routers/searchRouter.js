@@ -2,10 +2,10 @@ const Twitter = require('twitter');
 const secret = require('../../secrets.js');
 
 const twitter = new Twitter({
-  consumer_key: secret.CONSUMER_KEY,
-  consumer_secret: secret.CONSUMER_SECRET,
-  access_token_key: secret.ACCESS_TOKEN_KEY, 
-  access_token_secret: secret.ACCESS_TOKEN_SECRET
+  consumer_key: process.env.CONSUMER_KEY,
+  consumer_secret: process.env.CONSUMER_SECRET,
+  access_token_key: process.env.ACCESS_TOKEN_KEY, 
+  access_token_secret: process.env.ACCESS_TOKEN_SECRET
 })
 
 module.exports = function(express) {
