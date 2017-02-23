@@ -6,7 +6,7 @@ let oa = new OAuth(
   process.env.CONSUMER_KEY,
   process.env.CONSUMER_SECRET,
   "1.0",
-  "http://localhost:3000/auth/twitter/callback",
+  "https://twitterclient-search.herokuapp.com/auth/twitter/callback",
   "HMAC-SHA1"
 );
 
