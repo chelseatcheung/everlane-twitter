@@ -1,6 +1,6 @@
 ### twitter-client
 
-Web app that utilizes twitter API - allow user to search for tweets by word/phrase, hashtag, or photo. Uses React/Redux in the front end and Node/Express as the server.
+Web app that utilizes twitter API - allows user to search for tweets by word/phrase, hashtag, or photo. Uses React/Redux in the front end and Node/Express as the server.
 
 Deployed app: https://twitterclient-search.herokuapp.com/
 
